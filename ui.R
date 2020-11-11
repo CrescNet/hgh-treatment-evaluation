@@ -4,8 +4,6 @@ shinyUI(fluidPage(
   title = 'CrescNet hGH Treatment Evaluation App',
   titlePanel(title = div(img(src = 'logo.svg', height = '50'), span('hGH Treatment Evaluation App', style = 'vertical-align:bottom'))),
   'Please insert the most recent patient data as well as parental height values on the left site. The evaluation will be displayed on the right site.',
-  br(),
-  'SDS values are calculated with the R package ', a('childsds', href = 'https://cran.r-project.org/package=childsds'), '.',
   
   tags$h3('Disclaimer'),
   'This tool is not approved as a medicinal product for clinical use, and should be used for research purposes only.',
