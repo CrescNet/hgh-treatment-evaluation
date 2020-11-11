@@ -19,7 +19,7 @@ shinyUI(fluidPage(
       numericInput('height', 'Height (cm)', NULL, min = 0, max = 250),
       numericInput('motherHeight', 'Mother height (cm)', NULL, min = 0, max = 250),
       numericInput('fatherHeight', 'Father height (cm)', NULL, min = 0, max = 250),
-      selectInput('reference', 'Reference', c('Kromeyer-Hauschild'))
+      selectInput('reference', 'Reference', c('cdc', 'kiggs_2003-2006', 'kromeyer-hauschild_et_al', 'merker_et_al', 'xin-nan_zong_et_al', 'zemel_et_al'))
     ),
     
     mainPanel(

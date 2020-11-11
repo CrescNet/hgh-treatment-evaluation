@@ -1,14 +1,10 @@
 library(dplyr)
-library(childsds)
+library(GrowthSDS)
 
 shinyServer(function(input, output) {
   heightCentile <- reactive({
-    req(input$sex, input$age, input$height)
-    sds  <- sds(input$height, input$age, input$sex, 'height', kro.ref)
-    
-    if (sds == Inf | sds == -Inf) sds  <- NA
-    
-    sds
+    req(input$sex, input$age, input$height, input$reference)
+    sds(x = input$age, y = input$height, sex = input$sex, measurement = 'height', refName = input$reference)
   })
   
   targetHeights <- reactive({
@@ -16,9 +12,9 @@ shinyServer(function(input, output) {
     do.call(
       rbind,
       list(
-        Tanner      = data.frame(targetHeight(input$sex, input$motherHeight, input$fatherHeight, 'Tanner', input$reference)),
-        Molinari    = data.frame(targetHeight(input$sex, input$motherHeight, input$fatherHeight, 'Molinari', input$reference)),
-        Hermanussen = data.frame(targetHeight(input$sex, input$motherHeight, input$fatherHeight, 'Hermanussen', input$reference))
+        data.frame(targetHeight(input$sex, input$motherHeight, input$fatherHeight, refName = input$reference)),
+        data.frame(targetHeight(input$sex, input$motherHeight, input$fatherHeight, method = 'Molinari', refName = input$reference)),
+        data.frame(targetHeight(input$sex, input$motherHeight, input$fatherHeight, method = 'Hermanussen', refName = input$reference))
       )
     )
   })
@@ -27,11 +23,11 @@ shinyServer(function(input, output) {
     tags$b(sprintf('%.2f SDS (p%.1f)', heightCentile(), pnorm(heightCentile()) * 100))
   })
   
-  output$targetHeightTable <- renderTable(targetHeights(), rownames = TRUE)
+  output$targetHeightTable <- renderTable(targetHeights())
   
   output$hghTreatmentEvaluation <- renderUI({
     req(heightCentile(), targetHeights())
-    difference <- heightCentile() - targetHeights()['Hermanussen',]$sds[1]
+    difference <- heightCentile() - filter(targetHeights(), method == 'Hermanussen')$sds[1]
     tagList(
       'Difference to target height SDS (Hermanussen et al.) is: ', sprintf('%.2f', difference)
     )
