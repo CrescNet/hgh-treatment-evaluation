@@ -1,4 +1,5 @@
 library(shiny)
+library(GrowthSDS)
 
 shinyUI(fluidPage(
   title = 'CrescNet hGH Treatment Evaluation App',
@@ -12,12 +13,12 @@ shinyUI(fluidPage(
   
   sidebarLayout(
     sidebarPanel(
+      selectInput('reference', 'Reference', setNames(standardReferences()$Item, standardReferences()$Title)),
+      uiOutput('ageSlider'),
       radioButtons('sex', 'Sex', choices = c('female', 'male'), inline = TRUE),
-      sliderInput('age', 'Age (years)', min = 0, max = 20, value = 10, step = .25),
       numericInput('height', 'Height (cm)', NULL, min = 0, max = 250),
       numericInput('motherHeight', 'Mother height (cm)', NULL, min = 0, max = 250),
-      numericInput('fatherHeight', 'Father height (cm)', NULL, min = 0, max = 250),
-      selectInput('reference', 'Reference', c('cdc', 'kiggs_2003-2006', 'kromeyer-hauschild_et_al', 'merker_et_al', 'xin-nan_zong_et_al', 'zemel_et_al'))
+      numericInput('fatherHeight', 'Father height (cm)', NULL, min = 0, max = 250)
     ),
     
     mainPanel(

@@ -19,8 +19,22 @@ shinyServer(function(input, output) {
     )
   })
   
+  output$ageSlider <- renderUI({
+    req(input$reference)
+    ref <- get(data(list = input$reference, package = 'GrowthSDS'))
+    ranges <- xRanges(ref)$height
+    min <- min(data.frame(ranges)[,1])
+    max <- max(data.frame(ranges)[,2])
+    sliderInput('age', 'Age', min = signif(min, 1), max = signif(max, 1), value = 10, step = .1)
+  })
+  
   output$heightCentile <- renderUI({
-    tags$b(sprintf('%.2f SDS (p%.1f)', heightCentile(), pnorm(heightCentile()) * 100))
+    req(heightCentile())
+    age <- nearestX(x = input$age, sex = input$sex, measurement = 'height', refName = input$reference)
+    tagList(
+      tags$b(sprintf('%.2f SDS (p%.1f)', heightCentile(), pnorm(heightCentile()) * 100)),
+      tags$small(sprintf('at age %.2f', age))
+      )
   })
   
   output$targetHeightTable <- renderTable(targetHeights())
