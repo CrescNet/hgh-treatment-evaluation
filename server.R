@@ -60,17 +60,17 @@ shinyServer(function(input, output, session) {
   # SGA
   gestationalAge <- reactive({
     req(input$gestationalAge)
-    return(floor(input$gestationalAge) + (input$gestationalAge %% 1 * 10) / 7)
+    floor(input$gestationalAge) + (input$gestationalAge %% 1 * 10) / 7
   })
 
   birthLengthCentile <- reactive({
-    req(input$birthSex, input$isTwin, gestationalAge(), input$birthLength)
+    req(input$birthSex, gestationalAge(), input$birthLength)
     GrowthSDS:::evaluateCentiles(x = gestationalAge(), y = input$birthLength, ref = GrowthSDS::voigt@values$height[[input$birthSex]],
                                  centiles = c(.03, .1, .5, .9, .97), zscores = c(-2, 2))
   })
   
   birthWeightCentile <- reactive({
-    req(input$birthSex, input$isTwin, gestationalAge(), input$birthWeight)
+    req(input$birthSex, gestationalAge(), input$birthWeight)
     GrowthSDS:::evaluateCentiles(x = gestationalAge(), y = input$birthWeigth, ref = GrowthSDS::voigt@values$weight[[input$birthSex]],
                                  centiles = c(.03, .1, .5, .9, .97), zscores = c(-2, 2))
   })
