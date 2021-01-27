@@ -34,22 +34,22 @@ shinyServer(function(input, output, session) {
     req(heightCentile())
     age <- nearestX(x = age(), sex = input$sex, measurement = 'height', refName = input$reference)
     tagList(
-      tags$b(sprintf('%.2f SDS (p%.1f)', heightCentile(), pnorm(heightCentile()) * 100)),
-      tags$small(sprintf('at age %.2f', age))
-      )
+      tags$b(paste0(round(heightCentile(), 2), ' SDS (p', round(pnorm(heightCentile()) * 100, 1), ')')),
+      tags$small(paste('Alter', round(age, 1), 'Jahre'))
+    )
   })
   
   output$targetHeightTable <- renderTable(targetHeights())
   
   output$targetHeightDifference <- renderText({
     req(targetHeightDifference())
-    paste0('Difference to target height SDS (Hermanussen et al.) is: ', sprintf('%.2f', targetHeightDifference()))
+    paste('Differenz zu Zielgrößen-SDS (Hermanussen et al.):', round(targetHeightDifference(), 2))
   })
   
   output$targetHeightDifferenceResult <- renderText({
     req(targetHeightDifference())
     if (targetHeightDifference() <= -1) {
-      'Current height is 1 SDS or more below target height! Please check for SGA.'
+      'Aktuelle Größe ist 1 SDS oder mehr unter der Zielgröße! Bitte auf SGA prüfen.'
     } else {
       ''
     }
@@ -78,19 +78,23 @@ shinyServer(function(input, output, session) {
   output$birthLengthPlot <- renderPlot({
     result <- birthLengthCentile()
     req(result)
-    print(plotCentile(result, input$birthLength, 'Birth length [cm]'))
+    print(plotCentile(result, input$birthLength, 'Geburtslänge [cm]'))
   })
   
   output$birthWeightPlot <- renderPlot({
     result <- birthWeightCentile()
     req(result)
-    print(plotCentile(result, input$birthWeight, 'Birth weight [kg]'))
+    print(plotCentile(result, input$birthWeight, 'Geburtsgewicht [kg]'))
   })
   
   output$birthLengthEvaluation <- renderUI({
     req(birthLengthCentile())
     wellPanel(
-      tags$h4('Birth length:', tags$b(sprintf('%.1f cm (%.2f SDS, p%.1f)', input$birthLength, birthLengthCentile()$zscore, pnorm(birthLengthCentile()$zscore) * 100))),
+      tags$h4('Geburtslänge:', tags$b(paste0(
+        input$birthLength, ' cm (',
+        round(birthLengthCentile()$zscore, 2), ' SDS, p',
+        round(pnorm(birthLengthCentile()$zscore) * 100, 1), ')'
+      ))),
       uiOutput('birthLengthCentile'),
       plotOutput('birthLengthPlot', height = 70)
     )
@@ -99,7 +103,11 @@ shinyServer(function(input, output, session) {
   output$birthWeightEvaluation <- renderUI({
     req(birthWeightCentile())
     wellPanel(
-      tags$h4('Birth weight:', tags$b(sprintf('%.1f g (%.2f SDS, p%.1f)', input$birthWeight, birthWeightCentile()$zscore, pnorm(birthWeightCentile()$zscore) * 100))),
+      tags$h4('Geburtsgewicht:', tags$b(paste0(
+        input$birthWeight, ' g (',
+        round(birthWeightCentile()$zscore, 2), ' SDS, p',
+        round(pnorm(birthWeightCentile()$zscore) * 100, 1), ')'
+      ))),
       uiOutput('birthWeightCentile'),
       plotOutput('birthWeightPlot', height = 70)
     )

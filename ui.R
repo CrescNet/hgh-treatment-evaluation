@@ -6,12 +6,12 @@ shinyUI(fluidPage(
     tags$style('.tab-content { margin-top: 1rem }')
   ),
   
-  title = 'CrescNet hGH Treatment Evaluation App',
-  titlePanel(title = div(img(src = 'logo.svg', height = '50'), span('hGH Treatment Evaluation App', style = 'vertical-align:bottom'))),
-  'Please insert the patient data on the left site. The evaluation will be displayed on the right site.',
+  title = 'CrescNet App zur Beurteilung für STH-Therapierung',
+  titlePanel(title = div(img(src = 'logo.svg', height = '50'), span('App zur Beurteilung für STH-Therapierung', style = 'vertical-align:bottom'))),
+  'Bitte geben Sie die Patientendaten auf der linken Seite ein. Die Auswertung wird auf der rechten Seite angezeigt.',
   
   h3('Disclaimer'),
-  'This tool is not approved as a medicinal product for clinical use, and should be used for research purposes only.',
+  'Dieses Tool ist nicht als Arzneimittel für den klinischen Gebrauch zugelassen und sollte nur zu Forschungszwecken verwendet werden.',
   
   hr(),
   
@@ -19,24 +19,24 @@ shinyUI(fluidPage(
     type = 'tabs',
   
     tabPanel(
-      'Target Height',
+      'Zielgröße',
       sidebarLayout(
         sidebarPanel(
-          selectInput('reference', 'Reference', setNames(standardReferences()$Item, standardReferences()$Title)),
+          selectInput('reference', 'Referenz', setNames(standardReferences()$Item, standardReferences()$Title)),
           
-          dateInput('birthDate', 'Birth date', startview = 'decade', max = Sys.Date()),
-          radioButtons('sex', 'Sex', choices = c('female', 'male'), inline = TRUE),
+          dateInput('birthDate', 'Geburtsdatum', startview = 'decade', max = Sys.Date(), format = 'dd.mm.yyyy', language = 'de'),
+          radioButtons('sex', 'Geschlecht', choices = c('männlich' = 'male', 'weiblich' = 'female'), inline = TRUE),
           
-          dateInput('observationDate', 'Observation date', max = Sys.Date()),
-          numericInput('height', 'Height (cm)', NULL, min = 0, max = 250),
-          numericInput('motherHeight', 'Mother height (cm)', NULL, min = 0, max = 250),
-          numericInput('fatherHeight', 'Father height (cm)', NULL, min = 0, max = 250)
+          dateInput('observationDate', 'Beobachtungsdatum', max = Sys.Date(), format = 'dd.mm.yyyy', language = 'de'),
+          numericInput('height', 'Größe (cm)', NULL, min = 0, max = 250),
+          numericInput('motherHeight', 'Größe der Mutter (cm)', NULL, min = 0, max = 250),
+          numericInput('fatherHeight', 'Größe des Vaters (cm)', NULL, min = 0, max = 250)
         ),
         
         mainPanel(
-          wellPanel(tags$h4('Height SDS:', uiOutput('heightCentile', inline = TRUE))),
+          wellPanel(tags$h4('Größen-SDS:', uiOutput('heightCentile', inline = TRUE))),
           wellPanel(
-            h4('Target height:'),
+            h4('Zielgröße:'),
             textOutput('targetHeightDifference'),
             span(textOutput('targetHeightDifferenceResult'), style = 'color:red'),
             br(),
@@ -50,13 +50,13 @@ shinyUI(fluidPage(
       'SGA',
       sidebarLayout(
         sidebarPanel(
-          radioButtons('birthSex', 'Sex', choices = c('female', 'male'), inline = TRUE),
-          # radioButtons('isTwin', 'Twin', selected = FALSE, choiceNames = c('no'), choiceValues = c(FALSE), inline = TRUE),
+          radioButtons('birthSex', 'Geschlecht', choices = c('männlich' = 'male', 'weiblich' = 'female'), inline = TRUE),
+          # radioButtons('isTwin', 'Zwilling', selected = FALSE, choicees = c('nein' = FALSE), inline = TRUE),
           
-          numericInput('gestationalAge', 'Gestational age (wk.d, 20.0-43.0)', NA, min = 20, max = 43),
+          numericInput('gestationalAge', 'Gestationsalter (wk.d, 20.0-43.0)', NA, min = 20, max = 43),
           
-          numericInput('birthLength', 'Length (cm)', NULL, min = 0, max = 70),
-          numericInput('birthWeight', 'Weight (kg)', NULL, min = 0, max = 7000)
+          numericInput('birthLength', 'Länge (cm)', NULL, min = 0, max = 70),
+          numericInput('birthWeight', 'Gewicht (kg)', NULL, min = 0, max = 7000)
         ),
         
         mainPanel(
@@ -69,7 +69,7 @@ shinyUI(fluidPage(
   
   tags$footer(
     hr(),
-    tags$small('Source code of this Shiny app is available at: ',
+    tags$small('Quellcode dieser Shiny App ist verfügbar unter: ',
           a('GitHub', href = 'https://github.com/CrescNet/hgh-treatment-evaluation')
     ), align = 'center'
   )
