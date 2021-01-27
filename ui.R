@@ -22,7 +22,7 @@ shinyUI(fluidPage(
       'Zielgröße',
       sidebarLayout(
         sidebarPanel(
-          selectInput('reference', 'Referenz', setNames(standardReferences()$Item, standardReferences()$Title)),
+          selectInput('reference', 'Referenz', setNames(standardReferences()$Item, standardReferences()$Title), selected = 'kromeyerHauschild'),
           
           dateInput('birthDate', 'Geburtsdatum', startview = 'decade', max = Sys.Date(), format = 'dd.mm.yyyy', language = 'de'),
           radioButtons('sex', 'Geschlecht', choices = c('männlich' = 'male', 'weiblich' = 'female'), inline = TRUE),
