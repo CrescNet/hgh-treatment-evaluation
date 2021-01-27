@@ -53,7 +53,7 @@ shinyUI(fluidPage(
           radioButtons('birthSex', 'Geschlecht', choices = c('männlich' = 'male', 'weiblich' = 'female'), inline = TRUE),
           # radioButtons('isTwin', 'Zwilling', selected = FALSE, choicees = c('nein' = FALSE), inline = TRUE),
           
-          numericInput('gestationalAge', 'Gestationsalter (wk.d, 20.0-43.0)', NA, min = 20, max = 43),
+          numericInput('gestationalAge', 'Gestationsalter (wk.d, 20.0-43.0)', NULL, min = 20, max = 43),
           
           numericInput('birthLength', 'Länge (cm)', NULL, min = 0, max = 70),
           numericInput('birthWeight', 'Gewicht (kg)', NULL, min = 0, max = 7000)
