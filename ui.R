@@ -6,8 +6,8 @@ shinyUI(fluidPage(
     tags$style('.tab-content { margin-top: 1rem }')
   ),
   
-  title = 'CrescNet App zur Beurteilung für STH-Therapierung',
-  titlePanel(title = div(img(src = 'logo.svg', height = '50'), span('App zur Beurteilung für STH-Therapierung', style = 'vertical-align:bottom'))),
+  title = 'CrescNet App zur Wachstumshormon-Indikation',
+  titlePanel(title = div(img(src = 'logo.svg', height = '50'), span('App zur Wachstumshormon-Indikation', style = 'vertical-align:bottom'))),
   'Bitte geben Sie die Patientendaten auf der linken Seite ein. Die Auswertung wird auf der rechten Seite angezeigt.',
   
   h3('Disclaimer'),
