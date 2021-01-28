@@ -70,7 +70,7 @@ shinyUI(fluidPage(
   tags$footer(
     hr(),
     tags$small('Quellcode dieser Shiny App ist verfügbar unter: ',
-          a('GitHub', href = 'https://github.com/CrescNet/hgh-treatment-evaluation')
+          a('GitHub', href = 'https://github.com/CrescNet/hgh-treatment-indication')
     ), align = 'center'
   )
 ))
