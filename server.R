@@ -71,7 +71,7 @@ shinyServer(function(input, output, session) {
   
   birthWeightCentile <- reactive({
     req(input$birthSex, gestationalAge(), input$birthWeight)
-    GrowthSDS:::evaluateCentiles(x = gestationalAge(), y = input$birthWeigth, ref = GrowthSDS::voigt@values$weight[[input$birthSex]],
+    GrowthSDS:::evaluateCentiles(x = gestationalAge(), y = input$birthWeight, ref = GrowthSDS::voigt@values$weight[[input$birthSex]],
                                  centiles = c(.03, .1, .5, .9, .97), zscores = c(-2, 2))
   })
   
@@ -104,7 +104,7 @@ shinyServer(function(input, output, session) {
     req(birthWeightCentile())
     wellPanel(
       tags$h4('Geburtsgewicht:', tags$b(paste0(
-        input$birthWeight, ' g (',
+        input$birthWeight, ' kg (',
         round(birthWeightCentile()$zscore, 2), ' SDS, p',
         round(pnorm(birthWeightCentile()$zscore) * 100, 1), ')'
       ))),
