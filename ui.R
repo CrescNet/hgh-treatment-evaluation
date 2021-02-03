@@ -11,7 +11,7 @@ shinyUI(fluidPage(
   'Bitte geben Sie die Patientendaten auf der linken Seite ein. Die Auswertung wird auf der rechten Seite angezeigt.',
   
   h3('Disclaimer'),
-  'Dieses Tool ist nicht als Arzneimittel für den klinischen Gebrauch zugelassen und sollte nur zu Forschungszwecken verwendet werden.',
+  'Dieses Tool ist nicht als Medizinprodukt für den klinischen Gebrauch zugelassen und sollte nur zu Forschungszwecken verwendet werden.',
   
   hr(),
   
@@ -26,9 +26,10 @@ shinyUI(fluidPage(
           
           dateInput('birthDate', 'Geburtsdatum', startview = 'decade', max = Sys.Date(), format = 'dd.mm.yyyy', language = 'de'),
           radioButtons('sex', 'Geschlecht', choices = c('männlich' = 'male', 'weiblich' = 'female'), inline = TRUE),
-          
+          hr(),
           dateInput('observationDate', 'Beobachtungsdatum', max = Sys.Date(), format = 'dd.mm.yyyy', language = 'de'),
           numericInput('height', 'Größe (cm)', NULL, min = 0, max = 250),
+          hr(),
           numericInput('motherHeight', 'Größe der Mutter (cm)', NULL, min = 0, max = 250),
           numericInput('fatherHeight', 'Größe des Vaters (cm)', NULL, min = 0, max = 250)
         ),
