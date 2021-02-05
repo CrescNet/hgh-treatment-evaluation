@@ -4,7 +4,7 @@
 
 This Shiny app can be used to evaluate whether an indication for growth hormone treatment is present or not.
 
-The app allows users to calculate a patient's target height as well as birth SDS values for SGA evaluation
+The app allows users to calculate a patient's target height as well as birth SDS values for SGA evaluation.
 
 ## Disclaimer
 
